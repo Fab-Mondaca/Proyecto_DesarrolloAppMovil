@@ -10,27 +10,25 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
-
-    private val _eventos = MutableSharedFlow<NavigationEvent>()
-
-    val eventos: SharedFlow<NavigationEvent> = _eventos.asSharedFlow()
+    private val _navigationEvents = MutableSharedFlow<NavigationEvent>()
+    val navigationEvents: SharedFlow<NavigationEvent> = _navigationEvents.asSharedFlow()
 
     fun navigateTo(
         screen: Screen,
-        popUpTo: Screen? = null,
+        popUpToRoute: Screen? = null,
         inclusive: Boolean = false,
         singleTop: Boolean = false
     ) {
         viewModelScope.launch {
-            _eventos.emit(NavigationEvent.NavigateTo(screen, popUpTo, inclusive, singleTop))
+            _navigationEvents.emit(NavigationEvent.NavigateTo(screen, popUpToRoute, inclusive, singleTop))
         }
     }
 
     fun navigateBack() {
-        viewModelScope.launch { _eventos.emit(NavigationEvent.PopBackStack) }
+        viewModelScope.launch { _navigationEvents.emit(NavigationEvent.PopBackStack) }
     }
 
     fun navigateUp() {
-        viewModelScope.launch { _eventos.emit(NavigationEvent.NavigateUp) }
+        viewModelScope.launch { _navigationEvents.emit(NavigationEvent.NavigateUp) }
     }
 }
