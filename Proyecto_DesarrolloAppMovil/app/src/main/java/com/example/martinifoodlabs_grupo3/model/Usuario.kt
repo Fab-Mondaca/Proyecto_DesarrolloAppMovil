@@ -1,4 +1,3 @@
---------------------------------------------------------------------------
 package com.example.martinifoodlabs_grupo3.model
 
 import androidx.room.Entity
